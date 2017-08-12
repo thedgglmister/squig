@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
+    <script type="text/javascript" src="jQuery.js"></script>
+    <!--<script type="text/javascript" src="https://cdn.sobekrepository.org/includes/jquery-rotate/2.2/jquery-rotate.min.js"></script>-->
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href='face.png'>
+    <script type="text/javascript" src="jQueryRotate.js"></script>
+    <script type="text/javascript" src="doodlesfix510wDOM.js"></script>
+    <link href="doodles.css" type="text/css" rel="stylesheet">
+</head>
+
+
+<body>
+
+
+    <button id="squig_but" class="start_but">SQUIG</button>
+    <!--<button id="sqwag_but" class="start_but">SQWAG</button>-->
+    <button id="custom_but">CUSTOMIZE YO SQUIG</button>
+    
+    <div class="menu">
+        Length: <input id="pipe_number" value=20 /> <br/><br/> <!--change this so it can do arclength-->
+        Width: <input id="thickness" value=6 /> <br/><br/>
+        Color: <input id="color" value="black" /> <br/><br/>
+        Speed: <input id="speed" value=3 /> <br/><br/>
+        Min Straight: <input id="min_s" value=10 /> <br/><br/>
+        Max Straight: <input id="max_s" value=25 /> <br/><br/>
+        Min Turn: <input id="min_t" value=50 /> <br/><br/>
+        Max Turn: <input id="max_t" value=170 /> <br/><br/>
+        Min Radius: <input id="min_r" value=10 /> <br/><br/>
+        Max Radius: <input id="max_r" value=40 /> <br/><br/>
+        Starting Position: <input id="init_left" value=500 />, <input id="init_top" value=250 /> <br/><br/>
+        Starting Angle: <input id="init_rotation" value=0 /> <br/><br/>
+        Allow Repeats <input type="checkbox" id="all_pipes" /> <br/><br/>
+        <button id="set_polygon_but">Create Polygon Bounds</button> <br/><br/>
+        <button id="custom_bounds_but">Create Custom Bounds</button> <br/><br/>
+        <button id="set_path_but">Create Path</button> <br/><br/>
+        <button id="default_but">Return to Default</button>
+    </div>
+    
+</body>
+
+</html>
+
