@@ -55,6 +55,7 @@ input {
   width: 50px; /*just for view*/
   backface-visibility: hidden; 
   -webkit-backface-visibility: hidden;
+  /*background-color: red;*/
 }
 
 .straight { 
@@ -83,6 +84,7 @@ input {
   left: 0px;
   overflow: hidden;
   transform-origin: 0% 50%;
+  /*background-color: blue;*/
 }
 
 .start_but {
