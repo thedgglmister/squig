@@ -4,6 +4,12 @@
 
 //get rid of theta?
 
+//use .one for lines and stuff instead of on and off.
+
+//add esc stuff like getting out of draw mode and getting out of custom_menu
+
+//hitting space or enter after custom_but toggles menu? why? cus draw_div is visible??? also, space hits squig??? i think accesibility is that space and enter automatically hit the focused div???
+
 $(document).ready(function() {
 
 	var squig_parameters = {
@@ -48,17 +54,17 @@ $(document).ready(function() {
 	        var transform = 'rotate(' + angle + 'deg)';
 	        line.css({"width": width, "transform": transform});    
 		}
-	   	line = $('<div/>', {class: "line show", css: {"left": x, "top": y}});
+	   	line = $('<div/>', {class: "line", css: {"left": x, "top": y}});
 	    $("body").append(line);
-	    $(".draw_div").on("mousemove", move_line);
+	    $("#draw_div").on("mousemove", move_line);
 	}
 
 	function get_bound_trio(p1, p2) {
 	    var dx = (p2.x - p1.x);
 	    var dy = (-p2.y + p1.y);
 	    var angle = -Math.atan2(dy, dx);
-	    var s = (.75 * squig_parameters.max_r) * Math.sin(angle); ////.75 can change....
-	    var c = (.75 * squig_parameters.max_r) * Math.cos(angle);
+	    var s = (1 * squig_parameters.max_r) * Math.sin(angle); ////.75 can change....
+	    var c = (1 * squig_parameters.max_r) * Math.cos(angle);
 	    var ub_p1 = {x: (p1.x + s), y: (p1.y - c)};
 	    var ub_p2 = {x: (p2.x + s), y: (p2.y - c)};
 	    var lb_p1 = {x: (p1.x - s), y: (p1.y + c)};
@@ -82,13 +88,13 @@ $(document).ready(function() {
 
 	function enter_draw_mode() {
 		clear_path();
-		$(".custom_menu").removeClass("show");
-		$(".draw_div").addClass("show");
+		$("#main_wrapper").hide();
+		$("#draw_div").show();
 	}
 
 	function exit_draw_mode(e) {
-	    if ($(".draw_div").hasClass("show") && (e.which == 13 || e.which == 32)) {
-	    	$(".draw_div").off("mousemove");
+	    if ($("#draw_div").is(":visible") && (e.which == 13 || e.which == 32)) {
+	    	$("#draw_div").off("mousemove");
 	    	$(".line").last().remove();
 	    	if (points.length > 1) {
 	    		for (var i = 0; i < points.length - 1; i++)
@@ -98,24 +104,24 @@ $(document).ready(function() {
 	    	}
 	    	else
 	    		clear_path();
-	    	$(".custom_menu").addClass("show");
-			$(".draw_div").removeClass("show");
+	    	$("#main_wrapper").show();
+	    	$("#draw_div").hide();
 		}
 	}
 
 	function toggle_menu() {
-		if ($(".custom_menu").hasClass("show"))
+		if ($("#custom_menu").is(":visible"))
 			exit_menu();
 		else
 			enter_menu();
 	}
 
 	function enter_menu() {
-		$(".custom_menu, .line, .point_dot").addClass("show");
+		$("#custom_menu, .line, .point_dot").show();
 	}
 
 	function exit_menu() {
-		$(".custom_menu, .line, .point_dot").removeClass("show");
+		$("#custom_menu, .line, .point_dot").hide();
 	}
 
 	function build_and_draw_squig() {
@@ -147,21 +153,35 @@ $(document).ready(function() {
 	}
 
 	function draw_new_point(e) {
-		var new_point = $("<div/>", {class: "point_dot show", css: {"left": e.pageX, "top": e.pageY}});
+		var new_point = $("<div/>", {class: "point_dot", css: {"left": e.pageX, "top": e.pageY}});
 		new_point.appendTo("body").animate({"height": "10px", "width": "10px", "top": "-=5px", "left": "-=5px"}, 100);
 	    points.push({x: e.pageX, y: e.pageY});
-	    $(".draw_div").off("mousemove");
+	    $("#draw_div").off("mousemove");
 	    create_line(e.pageX, e.pageY);
 	}
 
 	function enter_about() {
-		$(".about_div").addClass("show").animate({"top": 0}, 500);
+		$("#about_div").animate({"top": 0}, 500);
 	}
 
 	function exit_about() {
-		$(".about_div").animate({"top": "100vh"}, 500, function() {
-			$(this).removeClass("show");
-		});
+		$("#about_div").animate({"top": "100vh"}, 500)
+	}
+
+	function opening_sequence() { //put this in its own file?
+		$("#custom_menu").hide();
+		/*var squig = new Squig(squig_parameters);
+		squig.build_seq();
+		squig.build_DOM();
+		squig.animate_squig();  //store total duration in squig, get max of all, and setttimeout for that 
+*/
+		setTimeout(function() {
+			$("#begin_but").one("click", function() {
+				clear_squigs();
+				$("#main_wrapper").show();
+			});
+			$("#about_but").trigger("click");
+		}, 1000);
 	}
 
 
@@ -181,7 +201,7 @@ $(document).ready(function() {
 
 	$(window).on("resize", get_win_bounds);
 
-	$(".draw_div").on("click", draw_new_point);
+	$("#draw_div").on("click", draw_new_point);
 	        
 	$(window).on("keypress", exit_draw_mode);
 
@@ -189,6 +209,18 @@ $(document).ready(function() {
 
 	$("#begin_but").on("click", exit_about);
 
-	$("#about_but").trigger("click");
+
+////
+
+
+
+	$(window).on("click", function(e) {
+		if ($("#custom_menu").is(":visible") && e.target.id == "main_wrapper")
+			exit_menu();
+	});
+
+	opening_sequence();
+
+
 
 });

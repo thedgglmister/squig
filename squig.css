@@ -4,17 +4,35 @@ body {
   background-color: #5F4133;
 }
 
-.draw_div {
+#main_wrapper {
   position: absolute;
+  display: none;
   left: 0;
   top: 0;
-  display: none;
   height: 100vh;
-  width: 100vw;  
-  z-index: 1000;
+  width: 100vw;
+  z-index: 999;
 }
 
-.about_div {
+#draw_div {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;  
+  z-index: 998;
+  background-color: transparent;
+}
+
+#draw_div p {
+  width: 300px;
+  color: white;
+  font-family: "Quicksand";
+  margin: 100px auto 0 auto;
+}
+
+#about_div {
   position: absolute;
   left: 0;
   top: 100vh;
@@ -26,7 +44,7 @@ body {
   font-family: "Quicksand";
 }
 
-.about_div p {
+#about_div p {
   width: 450px;
   margin: 30vh auto 10vh auto;
 }
@@ -62,7 +80,6 @@ button:focus {
   position: absolute;
   bottom: 30px;
   width: 100vw;
-  border: 1px solid grey;
   text-align: center;
 }
 
@@ -107,7 +124,6 @@ button:focus {
 
 #header {
   width: 100vw;
-  border: 1px solid grey;
 }
 
 
@@ -136,7 +152,6 @@ button:focus {
 
 #toggle_wrap {
   float: right;
-  border: 1px solid grey;
 }
 
 .toggle_but {
@@ -161,8 +176,8 @@ button:focus {
 
 
 
-.custom_menu {
-  display: none;
+#custom_menu {
+  display: inline-block;
   width: 254px;
   border: 3px solid grey;
   border-radius: 3px;
@@ -176,6 +191,7 @@ input {
   border: none;
   border-radius: 1px;
   height: 20px;
+  width: 30px;
   font-family: "Quicksand";
   font-size: 15px;
   border-bottom: 1px dashed white;
@@ -214,46 +230,22 @@ span#start {
 
 
 
-.menu {  
-  position: absolute;
-  left: -40vh;
-  height: 100vh;
-  width: 40vh;
-  background-color: lightblue;
-  font-size: 14px;
-  opacity: 0.95;
-  z-index: 10;
-}
 
-.open_menu {
-  left: 0; 
-}
 
-input {
-  width: 30px;
-}
+
+
+
+
 
 .line {
     position: absolute;
-    display: none;
     transform-origin: 0 50%;
     height: 1px; 
     background-color: lightgrey;
 }
 
-.start_point {
-    position: absolute;
-    z-index: 10;
-    border-radius: 100%;
-    background-color: lightblue;
-    opacity: 0.7;
-    cursor: pointer;
-}
-
-
 .point_dot {
   position: absolute;
-  display: none;
   border-radius: 100%;
   background-color: black;
 }
@@ -299,8 +291,4 @@ input {
   /*background-color: blue;*/
 }
 
-
-.show{ /*must be after menu and draw and other things like that*/
-  display: inline-block;
-}
 
