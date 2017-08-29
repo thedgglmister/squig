@@ -253,22 +253,30 @@ span#start {
 .wrap { 
   position: absolute;
   top: 0px;
-  height: 50px; /*just for view*/
-  width: 50px; /*just for view*/
+  height: 30px; /*just for view*/
+  width: 30px; /*just for view*/
   backface-visibility: hidden; 
   -webkit-backface-visibility: hidden;
-  /*background-color: red;*/
 }
+
+.wrap.show {
+  background-color: blue;
+}
+
 
 .straight { 
   position: absolute;
+  z-index: 1;
   left: 0px;
-  height: 50px; /*just for view*/
+  height: 30px; /*just for view*/
   border-left: none;
   border-bottom: none;
   border-right: none;
   border-radius: 1px 0 0 0;
-  /*background-color: blue;*/
+}
+
+.straight.show {
+  background-color: yellow;
 }
 
 .turn {
@@ -280,7 +288,10 @@ span#start {
   transform-origin: 100% 50%;
   -webkit-backface-visibility: hidden; 
   backface-visibility: hidden; 
-  /*background-color: green;*/
+}
+
+.turn.show {
+  background-color: red;
 }
 
 .blocker {
@@ -288,7 +299,4 @@ span#start {
   left: 0px;
   overflow: hidden;
   transform-origin: 0% 50%;
-  /*background-color: blue;*/
 }
-
-

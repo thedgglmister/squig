@@ -18,10 +18,10 @@ $(document).ready(function() {
                 var DOM_blocker;
 
                 if (pipe instanceof Straight) 
-                    return ('<div class="straight" style="' + 
+                    return ('<div class="straight' + (pipe.squig.show_divs ? ' show' : '') + '" style="' + 
                             'border-top:' + pipe.squig.width + 'px solid ' + pipe.squig.color + ';"></div>');
                 else {
-                    DOM_turn    = '<div class="turn" style="' +
+                    DOM_turn    = '<div class="turn' + (pipe.squig.show_divs ? ' show' : '') + '" style="' +
                                   'border:' + pipe.squig.width + 'px solid ' + pipe.squig.color + ';' +
                                   'border-right:none;' +
                                   'left:' + (-pipe.radius - pipe.squig.width) + 'px;' +
@@ -38,7 +38,6 @@ $(document).ready(function() {
             }
 
             function new_DOM_wrap(squig, prev_pipe) {
-
                 var wrap_opening;
 
                 if (prev_pipe == undefined) {
@@ -53,7 +52,10 @@ $(document).ready(function() {
                     var origin = prev_pipe.wrap_origin;
                     var degs   = prev_pipe.degs;
                 }
-                wrap_opening = '<div class="wrap' + (prev_pipe ? '' : ' squig' + squig.squig_i) + '" style="' + 
+                wrap_opening = '<div class="wrap' + 
+                               (prev_pipe ? '' : ' squig' + squig.squig_i) + 
+                               (squig.show_wraps ? ' show' : '') + 
+                               '" style="' + 
                                'left:' + left + 'px;' +
                                'top:' + top + 'px;' +
                                'transform-origin:' + origin + ';' +
@@ -147,6 +149,8 @@ $(document).ready(function() {
             this.repeats     = parameters.repeats;
             this.path_bounds = parameters.path_bounds;
             this.win_bounds  = parameters.win_bounds;
+            this.show_divs   = parameters.show_divs;
+            this.show_wraps = parameters.show_wraps;
             this.seq         = [];
         }
 
