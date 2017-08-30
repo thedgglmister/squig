@@ -187,21 +187,20 @@ $(document).ready(function() {
 	}
 
 	function toggle_divs() {
-		if (squig_params.show_divs)
-			$(".straight, .turn").css("background-color", "transparent");
-		else {
-			$(".turn").css("background-color", "red");
-			$(".straight").css("background-color", "yellow");
-		}
 		squig_params.show_divs = !squig_params.show_divs;
+		var colors = ["transparent", "rgba(255, 0, 0, 0.3)", "rgba(255, 255, 0, 0.3)"];
+		var msgs   = ["Show Divs", "Hide Divs"];
+		$(".straight").css("background-color", colors[2 * squig_params.show_divs]);
+		$(".turn").css("background-color", colors[1 * squig_params.show_divs]);
+		$("#toggle_divs").html(msgs[1 * squig_params.show_divs]);
 	}
 
 	function toggle_wraps() {
-		if (squig_params.show_wraps)
-			$(".wrap").css("background-color", "transparent");
-		else
-			$(".wrap").css("background-color", "blue");
 		squig_params.show_wraps = !squig_params.show_wraps;
+		var colors = ["transparent", "rgba(0, 0, 255, 0.3)"];
+		var msgs   = ["Show Wraps", "Hide Wraps"];
+		$(".wrap").css("background-color", colors[1 * squig_params.show_wraps]);
+		$("#toggle_wraps").html(msgs[1 * squig_params.show_wraps]);
 	}
 
 	function opening_sequence() { //put this in its own file?
@@ -340,7 +339,7 @@ $(document).ready(function() {
 				clear_squigs();
 				$("#main_wrapper").show();
 			});
-			$("#about_but").trigger("click");
+			enter_about();
 		}, max_duration + 3000);
 
 		//clear squigs after
@@ -367,19 +366,13 @@ $(document).ready(function() {
 	        
 	$(window).on("keypress", exit_draw_mode);
 
-	$("#about_but").on("click", enter_about);
-
 	$("#begin_but").on("click", exit_about);
 
 	$("#toggle_divs").on("click", toggle_divs);
 
 	$("#toggle_wraps").on("click", toggle_wraps);
 ////
-////temp
-	$(window).on("keypress", function() {
-		for (var i = 0; i < points.length; i++)
-			console.log(points[i]);
-	})
+
 
 
 	$(window).on("click", function(e) {
