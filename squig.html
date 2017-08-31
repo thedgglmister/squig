@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href='face.png'>
     <script type="text/javascript" src="jQueryRotate.js"></script>
     <script type="text/javascript" src="squig_class.js"></script>
+    <script type="text/javascript" src="css_colors.js"></script>
     <script type="text/javascript" src="regular.js"></script>
     <link href="squig.css" type="text/css" rel="stylesheet">
 </head>
@@ -18,36 +19,49 @@
     <button id="custom_but" class="but">Customize</button>
     <div id="custom_menu">
         <div class="input">
-            <span>Length:</span> <input id="pipes" value=20 />
+            <span class="option">Length:</span> 
+            <input id="pipes" value=20 />
         </div>
         <div class="input">
-            <span>Width:</span> <input id="width" value=6 />
+            <span class="option">Width:</span> 
+            <input id="width" value=6 />
         </div>
         <div class="input">
-            <span>Speed:</span> <input id="speed" value=3 />
+            <span class="option">Speed:</span> 
+            <input id="speed" value=60% />
         </div>
         <div class="input">
-            <span>Color:</span> <input id="color" value="black" />
+            <span class="option">Color:</span> 
+            <input id="color" value="#5e3ed2" />
         </div>
         <div class="input">
-            <span>Straights:</span> <input id="min_s" value=10 /> to <input id="max_s" value=25 />
+            <span class="option">Straights:</span> 
+            <input id="min_s" value=10 />
+            <span class="to">to</span>
+            <input id="max_s" value=25 />
         </div>
         <div class="input">        
-            <span>Turns:</span> <input id="min_t" value=50 /> to <input id="max_t" value=170 />
+            <span class="option">Turns:</span> 
+            <input id="min_t" value=30˚ />
+            <span class="to">to</span>
+            <input id="max_t" value=180˚ />
         </div>
         <div class="input">
-            <span>Radius:</span> <input id="min_r" value=10 /> to <input id="max_r" value=40 />
+            <span class="option">Radius:</span> 
+            <input id="min_r" value=30 />
+            <span class="to">to</span>
+            <input id="max_r" value=40 />
         </div>
         <div class="input">
-            <span id="start">Start:</span> x = <input id="init_left" value=200 /> y = <input id="init_top" value=250 /> θ = <input id="init_angle" value=0 />
-        </div>
-        <div class="input">
-            <input id="repeats" type="checkbox"><span>Allow Repeats</span>
+            <span id="start" class="option">Start:</span> 
+            x = <input id="init_left" /> 
+            y = <input id="init_top" />
         </div>
         <div class="input">            
             <button id="clear_path">Clear Path</button>
             <button id="new_path">New Path</button>
         </div>
+        <p id="error_msg"></p>
     </div>
     <div id="toggle_wrap">
         <button id="toggle_divs" class="toggle_but">Show Divs</button>
@@ -70,27 +84,6 @@
         <p>Click to add lines to your path. Hit Enter or Space when you're done</p>
     </div>
 
-
-
-    <!--<div class="menu">
-        Length: <input id="pipe_number" value=20 /> <br/><br/> 
-        Width: <input id="thickness" value=6 /> <br/><br/>
-        Color: <input id="color" value="black" /> <br/><br/>
-        Speed: <input id="speed" value=3 /> <br/><br/>
-        Min Straight: <input id="min_s" value=10 /> <br/><br/>
-        Max Straight: <input id="max_s" value=25 /> <br/><br/>
-        Min Turn: <input id="min_t" value=50 /> <br/><br/>
-        Max Turn: <input id="max_t" value=170 /> <br/><br/>
-        Min Radius: <input id="min_r" value=10 /> <br/><br/>
-        Max Radius: <input id="max_r" value=40 /> <br/><br/>
-        Starting Position: <input id="init_left" value=500 />, <input id="init_top" value=250 /> <br/><br/>
-        Starting Angle: <input id="init_rotation" value=0 /> <br/><br/>
-        Allow Repeats <input type="checkbox" id="all_pipes" /> <br/><br/>
-        <button id="set_polygon_but">Create Polygon Bounds</button> <br/><br/>
-        <button id="custom_bounds_but">Create Custom Bounds</button> <br/><br/>
-        <button id="set_path_but">Create Path</button> <br/><br/>
-        <button id="default_but">Return to Default</button>
-    </div>-->
     
 </body>
 

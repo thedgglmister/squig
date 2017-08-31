@@ -1,9 +1,3 @@
-//when path mode is on, start doesnt matter.... neither does turn stuff.... kinda? how to show this in menu?
-
-//hide everyting when i draw!
-
-//get rid of theta?
-
 //use .one for lines and stuff instead of on and off.
 
 //add esc stuff like getting out of draw mode and getting out of custom_menu
@@ -14,7 +8,7 @@
 
 //in opening for example, shoudl small window be faster than big window? if its px per second, large radisu will slow it down. instead use length to standardize it???
 
-//key to press to skip opening
+//key to press to skip opening?
 
 $(document).ready(function() {
 
@@ -26,7 +20,7 @@ $(document).ready(function() {
 			squig_i: 0,
 			pipes: parseInt($("#pipes").val()), ///change
 			width: parseInt($("#width").val()),
-			speed: parseInt($("#speed").val()),
+			speed: parseInt(104.76157 / Math.pow(1.0476157, parseInt($("#speed").val()))),
 			color: $("#color").val(),
 			min_s: parseInt($("#min_s").val()),
 			max_s: parseInt($("#max_s").val()),
@@ -34,15 +28,17 @@ $(document).ready(function() {
 			max_r: parseInt($("#max_r").val()),
 			min_t: parseInt($("#min_t").val()),
 			max_t: parseInt($("#max_t").val()),
-			init_left: parseInt($("#init_left").val()),
-			init_top: parseInt($("#init_top").val()),
-			init_angle: parseInt($("#init_angle").val()),  ///maybe need to get rid of ˚ or %
-			repeats: $("#repeats").prop("checked"),
+			init_left: parseInt($(window).width() / 3),
+			init_top: parseInt($(window).height() / 2),
+			init_angle: 0,
+			repeats: false,
 			win_bounds: get_win_bounds(), //call default bounds.
 			show_divs: false,
 			show_wraps: false,
 			path_bounds: []
 		};
+		$("#init_left").val(squig_params.init_left);
+		$("#init_top").val(squig_params.init_top);
 	}
 
 	function get_win_bounds() { //on resize................
@@ -121,7 +117,7 @@ $(document).ready(function() {
 	}
 
 	function toggle_menu() {
-		if ($("#custom_menu").is(":visible"))
+		if ($("#custom_menu").is(":visible") && $(".error_msg").length == 0)
 			exit_menu();
 		else
 			enter_menu();
@@ -136,18 +132,19 @@ $(document).ready(function() {
 	}
 
 	function build_and_draw_squig(get_duration) {
-		var duration = 0;
-		var squig    = new Squig(squig_params);
-
-		squig.build_seq();
-		if (get_duration) {
-			for (var i = 0; i < squig.seq.length; i++)
-				duration += squig.seq[i].duration;
+		if ($(".error_msg").length == 0) {
+			var duration = 0;
+			var squig    = new Squig(squig_params);
+			squig.build_seq();
+			if (get_duration) {
+				for (var i = 0; i < squig.seq.length; i++)
+					duration += squig.seq[i].duration;
+			}
+			squig.build_DOM();
+			squig.animate_squig();
+			squig_params.squig_i++; 
+			return (duration);	
 		}
-		squig.build_DOM();
-		squig.animate_squig();
-		squig_params.squig_i++; 
-		return (duration);
 	}
 
 	function clear_squigs() {
@@ -155,14 +152,56 @@ $(document).ready(function() {
 		squig_params.squig_i = 0;
 	}
 
+	function display_error(id, error_msg) {
+		$("#" + id).parent().after("<p class='error_msg'>" + error_msg + "</p>");
+	}
+
+	function validate_params(e) {
+		var inputs = $("input");
+
+		$(".error_msg").remove();
+		for (var i = 0; i < inputs.length; i++) {
+
+			id = $(inputs[i]).attr("id");
+			val = $(inputs[i]).val();
+			if (id != "color")
+				val = parseInt(val);
+			if ($(".error_msg").length > 0)
+				break;
+			if (id == "pipes" && (val <= 0 || val > 500))
+				display_error(id, "Length must be between 1 and 500");
+			else if (id == "width" && val <= 0)
+				display_error(id, "Width must be greater than 0");
+			else if (id == "speed" && (val <= 0 || val > 100))
+				display_error(id, "Speed must be between 1 and 100");
+			else if (id == "color" && (!/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(val) &&
+					css_colors.indexOf(val.toLowerCase()) < 0))
+				display_error(id, "Must be valid hex code or css color name");
+			else if (id == "min_s" && (val <= 0))
+				display_error(id, "Min Straight must be greater than 0");
+			else if (id == "max_s" && (val < $("#min_s").val()))
+				display_error(id, "Max Straight must be greater than Min");
+			else if (id == "min_r" && (val <= 0))
+				display_error(id, "Min Radius must be greater than 0");
+			else if (id == "max_r" && (val < $("#min_r").val()))
+				display_error(id, "Max Radius must be greater than Min");
+			else if (id == "min_t" && (val <= 0))
+				display_error(id, "Min Turn must be greater than 0");
+			else if (id == "max_t" && (val > 180 || val < $("#min_t").val()))
+				display_error(id, "Max Turn must be between Min and 180");
+		}
+	}
+
 	function validate_and_update_params(e) {
-		//validate/////////////////////
-		if (e.target.id == "repeats") 
-	    	squig_params.repeats = $(e.target).prop("checked");
-		else if (e.target.id == "color")
-			squig_params.color = e.target.value;
-		else 
-	    	squig_params[e.target.id] = parseInt(e.target.value);
+		validate_params();
+		if ($(".error_msg").length == 0) {
+			if (e.target.id == "color")
+				squig_params.color = e.target.value;
+			else if (e.target.id == "speed")
+				squig_params.speed = parseInt(104.76157 / Math.pow(1.0476157, parseInt($("#speed").val())));
+			else 
+		    	squig_params[e.target.id] = parseInt(e.target.value);
+		}
 	}
 
 	function blur_input(e) {
@@ -209,7 +248,7 @@ $(document).ready(function() {
 		squig_params = {
 			squig_i: 0,
 			width: 5,
-			speed: 1,
+			speed: 3,
 			color: "black",
 			min_s: 5,
 			max_s: 12,
@@ -221,7 +260,6 @@ $(document).ready(function() {
 			show_wraps: false,
 			path_bounds: []
 		}
-
 		var s_points = [{x: 204, y: 76}, 
 						{x: 171, y: 44}, 
 						{x: 107, y: 36}, 
@@ -233,7 +271,6 @@ $(document).ready(function() {
 						{x: 142, y: 307},
 						{x: 88, y: 306},
 						{x: 44, y: 266}];
-
 		var q_points = [{x: 400, y: 197},
 						{x: 441, y: 250},
 						{x: 481, y: 197},
@@ -247,7 +284,6 @@ $(document).ready(function() {
 						{x: 440, y: 263},
 						{x: 465, y: 300},
 						{x: 524, y: 294}];
-
 		var u_points = [{x: 587, y: 38},
 						{x: 579, y: 127},
 						{x: 575, y: 236},
@@ -257,10 +293,8 @@ $(document).ready(function() {
 						{x: 781, y: 236},
 						{x: 785, y: 162},
 						{x: 777, y: 49}];
-
 		var i_points = [{x: 875, y: 19},
 						{x: 874, y: 309}];
-
 		var g_points = [{x: 1163, y: 68},
 						{x: 1074, y: 29},
 						{x: 982, y: 71},
@@ -270,19 +304,14 @@ $(document).ready(function() {
 						{x: 1169, y: 292},
 						{x: 1189, y: 193},
 						{x: 1086, y: 194}];
-
 		var all_points = [s_points, q_points, u_points, i_points, g_points];
 
-		//scale
-
 		var ratio = $(window).width() / 1500;
-
 		squig_params.min_r	= parseInt(squig_params.min_r * ratio);
 		squig_params.max_r	= parseInt(squig_params.max_r * ratio);
 		squig_params.min_s	= parseInt(squig_params.min_s * ratio);
 		squig_params.max_s	= parseInt(squig_params.max_s * ratio);
 		squig_params.width	= parseInt(squig_params.width * ratio);
-
 		for (var i = 0; i < all_points.length; i++) {
 			for (var j = 0; j < all_points[i].length; j++) {
 				all_points[i][j].x *= ratio;
@@ -294,46 +323,26 @@ $(document).ready(function() {
 
 		var duration;
 		var max_duration = 0;
-
-
 		for (var i = 0; i < 5; i++) {
-
-
 			for (var j = 0; j < all_points[i].length - 1; j++)
 	        	squig_params.path_bounds.push(get_bound_trio(all_points[i][j], all_points[i][j + 1]));
 	    	squig_params.init_left = all_points[i][0].x;
 	    	squig_params.init_top = all_points[i][0].y;
-
 	    	duration = build_and_draw_squig(true);
 	    	if (duration > max_duration)
 	    		max_duration = duration;
 	    	squig_params.path_bounds = [];
-
-
 			for (var j = all_points[i].length - 2; j >= 0; j--)
 	        	squig_params.path_bounds.push(get_bound_trio(all_points[i][j + 1], all_points[i][j]));
 	    	squig_params.init_left = all_points[i][all_points[i].length - 1].x;
 	    	squig_params.init_top = all_points[i][all_points[i].length - 1].y;
-
-
 	    	duration = build_and_draw_squig(true);
 	    	if (duration > max_duration)
 	    		max_duration = duration;
 	    	squig_params.path_bounds = [];
-
-
 		}
 
 		init_params();
-	
-
-
-
-
-
-
-
-
 		setTimeout(function() {
 			$("#begin_but").one("click", function() {
 				clear_squigs();
@@ -341,10 +350,9 @@ $(document).ready(function() {
 			});
 			enter_about();
 		}, max_duration + 3000);
-
-		//clear squigs after
 	}
 
+$("#about_div").width($(window).width());/////
 
 	$("#custom_but").on("click", toggle_menu);
 
@@ -371,14 +379,15 @@ $(document).ready(function() {
 	$("#toggle_divs").on("click", toggle_divs);
 
 	$("#toggle_wraps").on("click", toggle_wraps);
-////
-
-
 
 	$(window).on("click", function(e) {
-		if ($("#custom_menu").is(":visible") && e.target.id == "main_wrapper")
+		if ($("#custom_menu").is(":visible") && 
+				e.target.id == "main_wrapper" && 
+				$(".error_msg").length == 0)
 			exit_menu();
 	});
+
+console.log($("#about_div").width()); /////
 
 	opening_sequence();
 

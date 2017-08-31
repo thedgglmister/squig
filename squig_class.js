@@ -1,5 +1,6 @@
 //CAN OPTIMAIZE ANIMATION TO BE SMOOTH?? WHATS THE ISSUE, RECURSIVE??
 ///MAKE LENGTH NOT PIPE NUMBER BUT ACTUAL LENGTH IN PX?
+
 $(document).ready(function() {
 
     var flr = Math.floor;

@@ -85,7 +85,6 @@ button:focus {
 
 .but {
   display: inline-block;
-  width: 200px;
   height: 40px;
   width: 200px;
   font-size: 25px;
@@ -146,8 +145,8 @@ button:focus {
 
 #toggle_wrap {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 0px;
+  right: 0px;
 }
 
 .toggle_but {
@@ -174,20 +173,20 @@ button:focus {
 
 #custom_menu {
   display: inline-block;
-  width: 254px;
+  width: 232px;
   border: 1px solid black;
   border-radius: 3px;
   font-family: "Quicksand";
   background-color: #495C70;
   opacity: 0.7;
-  padding: 10px 0 0 10px;
+  padding: 0px 0px 0px 10px;
 }
 
 input {
   border: none;
   border-radius: 1px;
   height: 20px;
-  width: 30px;
+  width: 50px;
   font-family: "Quicksand";
   font-size: 15px;
   border-bottom: 1px dashed white;
@@ -196,24 +195,28 @@ input {
 }
 
 .input {
-  height: 40px;
+  padding-top: 10px;
 }
 
-.input span {
+.option {
   display: inline-block;
   min-width: 80px;
   font-weight: 900;
 }
 
-input#color {
-  width: 87px;
+#color {
+  width: 131px;
 }
 
-span#start {
+#start {
   min-width: 55px;
 }
 
-
+.to {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
 
 
 
@@ -299,4 +302,11 @@ span#start {
   left: 0px;
   overflow: hidden;
   transform-origin: 0% 50%;
+}
+
+.error_msg {
+  color: red;
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
 }
