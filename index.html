@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdn.sobekrepository.org/includes/jquery-rotate/2.2/jquery-rotate.min.js"></script>-->
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link href="squig.css" type="text/css" rel="stylesheet">
+    <link rel="shortcut icon" href='face.png'>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.sobekrepository.org/includes/jquery-rotate/2.2/jquery-rotate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="squig_class.js"></script>
+    <script type="text/javascript" src="squig.js"></script>
+    <script type="text/javascript" src="jscolor.js"></script>
+</head>
+
+<body>
+    <div id="main_wrapper">
+        <button id="custom_but" class="but">Customize</button>
+        <div class="menu_triangle"></div>
+        <div id="custom_menu">
+
+            <div class="option non-path">
+                <span class="help">Size: </span><span class="value">20</span>
+                <div class="info_triangle"></div>
+                <div class="info">Size is measured by the number of times a squig changes direction</div>
+            </div>
+            <div id="pipes" class="non-path"></div>
+
+            <div class="option">
+                Width: <span class="value">6</span> 
+            </div>
+            <div id="width"></div>
+
+            <div class="option">
+                Speed: <span class="value">65</span>% 
+            </div>
+            <div id="speed"></div>
+
+            <div class="option">
+                <span class="help">Radius: </span><span class="value1">25</span> to <span class="value2">40</span>
+                <div class="info_triangle"></div>
+                <div class="info">The radius of each turn is randomly chosen between these two values</div>
+            </div>
+            <div id="radii"></div>
+
+            <div class="option non-path">
+                <span class="help">Straights: </span><span class="value1">10</span> to <span class="value2">20</span>
+                <div class="info_triangle"></div>
+                <div class="info">The length that a squig can move without turning is randomly chosen between these two values</div>
+            </div>
+            <div id="straights" class="non-path"></div>
+
+            <div class="option non-path">
+                <span class="help">Turns: </span><span class="value1">30</span>˚ to <span class="value2">180</span>˚
+                <div class="info_triangle"></div>
+                <div class="info">The degrees of each turn is randomly chosen between these two values</div>
+            </div>
+            <div id="turns" class="non-path"></div>
+
+            <div class="option non-path">
+                Start: x = <span class="value1"></span>, y = <span class="value2"></span>
+            </div>
+            <div id="start" class="non-path"></div>
+
+            <div class="option">
+                Color: <input class="jscolor" type="button" name="#000000"/> 
+            </div>
+              
+            <button id="new_path">New Path</button>
+            <button id="clear_path">Clear Path</button>
+        </div>
+        <div id="toggle_wrap">
+            <button id="toggle_divs" class="toggle_but but">Show Divs</button>
+            <button id="toggle_wraps" class="toggle_but but">Show Wraps</button>
+        </div>
+        <div id="bottom_wrap">
+            <button id="squig_but" class="bottom_but but">SQUIG</button>
+            <button id="clear_but" class="bottom_but but">CLEAR</button>
+        </div>
+    </div>
+
+
+    <div id="about_div">
+        <p>This is a description of my project. It is very good and nice. I hope you enjoy the show and show that you enjoy.</p>
+        <div id="begin_but">Get yo squig on</div>
+    </div>
+    
+
+    <div id="draw_div">
+        <p>Click to add lines to your path. Hit Enter or Space when you're done</p>
+    </div>
+
+    
+</body>
+
+</html>
+
