@@ -2,8 +2,6 @@
 <html>
 
 <head>
-    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
-    <!--<script type="text/javascript" src="https://cdn.sobekrepository.org/includes/jquery-rotate/2.2/jquery-rotate.min.js"></script>-->
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="squig.css" type="text/css" rel="stylesheet">
@@ -11,9 +9,9 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.sobekrepository.org/includes/jquery-rotate/2.2/jquery-rotate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="jscolor.js"></script>
     <script type="text/javascript" src="squig_class.js"></script>
     <script type="text/javascript" src="squig.js"></script>
-    <script type="text/javascript" src="jscolor.js"></script>
 </head>
 
 <body>
@@ -66,7 +64,11 @@
             <div id="start" class="non-path"></div>
 
             <div class="option">
-                Color: <input class="jscolor" type="button" name="#000000"/> 
+                Color: <input id="color" class="jscolor" type="button" name="#000000"/> 
+            </div>
+
+            <div class="option">
+                Background Color: <input id="bgcolor" class="jscolor" type="button" name="#5F4133"/> 
             </div>
               
             <button id="new_path">New Path</button>
@@ -84,7 +86,7 @@
 
 
     <div id="about_div">
-        <p>This is a description of my project. It is very good and nice. I hope you enjoy the show and show that you enjoy.</p>
+        <p>Where all your squiggly dreams come true</p>
         <div id="begin_but">Get yo squig on</div>
     </div>
     

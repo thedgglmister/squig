@@ -46,9 +46,10 @@ body {
 }
 
 #about_div p {
-  width: 450px;
-  margin: 30vh auto 10vh auto;
+  width: 80vw;
+  margin: 30vh auto 5vh auto;
   text-align: center;
+  font-size: 40px;
 }
 
 #begin_but {
@@ -125,7 +126,7 @@ button:focus {
 
 #custom_but {
   display: block;
-  background-color: #495C70;
+  background-color: #c0c0c0;
   margin: 10px 0 0 10px;
 }
 
@@ -168,7 +169,7 @@ button:focus {
   width: 0px;
   opacity: 0.7;
   background-color: transparent;
-  border-bottom: 0px solid #495C70;
+  border-bottom: 0px solid #c0c0c0;
   border-top: 0px solid transparent;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -182,7 +183,7 @@ button:focus {
  // border: 1px solid black;
   border-radius: 3px;
   font-family: "Quicksand";
-  background-color: #495C70;
+  background-color: #c0c0c0;
   opacity: 0.7;
   padding: 0px 0px 10px 10px;
   margin-left: 10px;
@@ -239,7 +240,7 @@ button:focus {
   position: absolute;
   display: none;
   width: 140px;
-  background-color: #72C0AA;
+  background-color: #82D0BA;
   border-radius: 3px;
   left: -15px;
   top: 30px;
@@ -247,7 +248,7 @@ button:focus {
   text-align: center;
   z-index: 100;
   padding: 5px;
-  color: #fff;
+  color: #ffffff;
 }
 
 .option:first-child .info {
@@ -259,7 +260,7 @@ button:focus {
   display: none;
   width: 0px;
   background-color: transparent;
-  border-bottom: 10px solid #72C0AA;
+  border-bottom: 10px solid #82D0BA;
   border-top: 0px solid transparent;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -293,6 +294,7 @@ button:focus {
   position: absolute;
   border-radius: 100%;
   background-color: black;
+  z-index: 100;
 }
 
 .wrap { 
@@ -305,7 +307,7 @@ button:focus {
 }
 
 .wrap.show {
-  background-color: rgba(0, 0, 255, 0.3);
+  background-color: rgba(19, 76, 228, 0.3);
 }
 
 
@@ -321,7 +323,7 @@ button:focus {
 }
 
 .straight.show {
-  background-color: rgba(255, 255, 0, 0.3);
+  background-color: rgba(228, 206, 19, 0.3);
 }
 
 .turn {
@@ -336,7 +338,7 @@ button:focus {
 }
 
 .turn.show {
-  background-color: rgba(255, 0, 0, 0.3);
+  background-color: rgba(211, 36, 36, 0.3);
 }
 
 .blocker {
