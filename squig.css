@@ -1,7 +1,7 @@
 body {
   margin: 0px;
   overflow: hidden;
-  background-color: #6e3f17;
+  background-color: #629993;
 }
 
 .wrap { 
@@ -161,9 +161,7 @@ button:focus {
 }
 
 #custom_but {
-  width: 150px;
-  height: 30px;
-  font-size: 18px;
+  font-size: 20px;
   display: block;
   background-color: #d0d0d0;
   margin: 10px 0 0 10px;

@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
 	var squig_params = {squig_i:     0,
-						init_angle:  0,
 						repeats:     false,
 						show_divs:   false,
 						show_wraps:  false,
@@ -27,48 +26,20 @@ $(document).ready(function() {
 		squig_params["max_r"]      = parseInt($("#radii").slider("values")[1]);
 		squig_params["min_t"]      = parseInt($("#turns").slider("values")[0]);
 		squig_params["max_t"]      = parseInt($("#turns").slider("values")[1]);
-		squig_params["init_left"]  = parseInt($("#start").slider("values")[0]);
-		squig_params["init_top"]   = parseInt($("#start").slider("values")[1]);
+		squig_params["init_left"]  = parseInt($("#start").slider("values")[0] * $(window).width() / 1000);
+		squig_params["init_top"]   = parseInt($("#start").slider("values")[1] * $(window).height() / 1000);
+		squig_params["init_angle"] = 360 - parseInt($("#start").slider("values")[2] * 359 / 1000);
 		squig_params["color"]      = $("#color").attr("name");
 		squig_params["win_bounds"] = get_win_bounds();
 	}
 
-	function update_display(e, ui) {	
-		if ($(this).attr("id") == "start") {
-			var win_dims = [$(window).width(), $(window).height()];
-			var max_value = Math.max(win_dims[0], win_dims[1]); //
-			if (ui.value > win_dims[ui.handleIndex]) {
-				ui.values[ui.handleIndex] = win_dims[ui.handleIndex];
-				ui.value = win_dims[ui.handleIndex];
-				$("#start").slider("option", "values", ui.values);
-				$("#start").prev().children(".value" + (ui.handleIndex + 1)).text(ui.value);
-				$($("#start .ui-slider-handle")[ui.handleIndex]).css("left", 180 * ui.value / max_value);//				
-				return false;
-			}
-		}
-		if (ui.values) {
-			$(this).prev().children(".value1").text(ui.values[0]);
-			$(this).prev().children(".value2").text(ui.values[1]);
-		}
-		else
-			$(this).prev().children(".value").text(ui.value);
-	}
-
-	function handle_resize() {
-		get_win_bounds();
-		handle_max_pos[0] = $("#start").css("width") * $(window).width() / $(window).height(); //need these or do something similar to below?
-		handle_max_pos[1] = $("#start").css("width") * $(window).height() / $(window).width();
-		var win_dims = [$(window).width(), $(window).height()];
-		var max_value = Math.max(win_dims[0], win_dims[1]);
-		var vals = $("#start").slider("option", "values");
-		$("#start").slider("option", "max", max_value);
-		for (var i = 0; i < 2; i++) {
-			if (vals[i] > win_dims[i])
-				vals[i] = win_dims[i];
-			$($("#start .ui-slider-handle")[1]).css("left", 180 * vals[i] / max_value);
-			$("#start").prev().children(".value" + (i + 1)).text(vals[i]);
-		}
-		$("#start").slider("option", "values", vals);
+	function update_display(e, ui) {
+		if (ui.handleIndex == 2)
+			$(this).prev().children(".value2").text(parseInt(ui.value * 359 / 1000));
+		else if ($(this).attr("id") == "start")
+			$(this).prev().children(".value" + ui.handleIndex).text(parseInt(ui.value / 10));
+		else 
+			$(this).prev().children(".value" + ui.handleIndex).text(ui.value);
 	}
 
 	function get_win_bounds() {
@@ -218,8 +189,9 @@ $(document).ready(function() {
 	function build_and_draw_squig(get_duration) {
 		if ($(".error_msg").length == 0) {
 			if (points.length != 0) {
-				squig_params.init_left = points[0].x + parseInt((Math.random() * 2 - 1) * squig_params.max_r);
-	    		squig_params.init_top = points[0].y + parseInt((Math.random() * 2 - 1) * squig_params.max_r);
+				squig_params.init_left = points[0].x + parseInt((Math.random() - 0.5) * squig_params.max_r);
+	    		squig_params.init_top = points[0].y + parseInt((Math.random() - 0.5) * squig_params.max_r);
+	    		squig_params.init_angle = Math.atan2(points[1].y - points[0].y, points[1].x - points[0].x) * 180 / Math.PI;
 			}
 			var duration = 0;
 			var squig    = new Squig(squig_params);
@@ -264,8 +236,9 @@ $(document).ready(function() {
 		$("#main_wrapper").show();
 		$("#custom_menu").hide(); 
 		$("#bgcolor").css("background-color", $("body").css("background-color"));
-		$("#about_div").animate({"top": "100vh"}, 500);
-		$("#about_div").hide();
+		$("#about_div").animate({"top": "100vh"}, 500, function() {
+			$("#about_div").hide();
+		});
 	}
 
 	function toggle_divs() {
@@ -290,7 +263,7 @@ $(document).ready(function() {
 			squig_i: 0,
 			width: 5,
 			speed: 3,
-			color: "black",
+			color: $("#color").attr("name"),
 			min_s: 5,
 			max_s: 12,
 			min_r: 10,
@@ -418,13 +391,10 @@ $(document).ready(function() {
 		$("#radii").slider({min:1, max:100, values: [25, 40], range: true});  
 		$("#straights").slider({min:0, max:100, values: [5, 15], range: true});
 		$("#turns").slider({min:1, max:180, values: [50, 170], range: true});         
-		$("#start").slider({min:0, 
-							max: Math.max($(window).width(), $(window).height()), 
-							values: [parseInt($(window).width() / 3), parseInt($(window).height() / 2)]});
-		$("#start").prev().children(".value1").text(parseInt($(window).width() / 3));
-		$("#start").prev().children(".value2").text(parseInt($(window).height() / 2));
+		$("#start").slider({min:0, max: 1000, values: [333, 500, 0]});
 		$($("#start .ui-slider-handle")[0]).text("x");
 		$($("#start .ui-slider-handle")[1]).text("y");   
+		$($("#start .ui-slider-handle")[2]).text("θ");  
 		$(".ui-slider-horizontal").slider({
 			slide: update_display,
 			change: update_params
@@ -448,7 +418,7 @@ $(document).ready(function() {
 		});
 		$("#new_path").on("click", enter_draw_mode);
 		$("#clear_path").on("click", clear_path);
-		$(window).on("resize", handle_resize);
+		$(window).on("resize", update_params);
 		$("#draw_div").on("click", draw_new_point);
 		$(window).on("keyup", exit_mode);
 		$("#toggle_divs").on("click", toggle_divs);
