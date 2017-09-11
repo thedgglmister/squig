@@ -1,13 +1,3 @@
-//add esc stuff like getting out of draw mode and getting out of custom_menu
-
-//in opening for example, shoudl small window be faster than big window? if its px per second, large radisu will slow it down. instead use length to standardize it???
-
-//key to press to skip opening?
-
-//only exit menu if click started off of menu. otherwise, click on menu, then move, then release off will close it...
-
-//need to fix infinite loops
-
 $(document).ready(function() {
 
 	var squig_params = {squig_i:     0,
@@ -24,7 +14,8 @@ $(document).ready(function() {
 	var hide_info_timer;
 	var mouse_down_target;
 	var handle_max_pos = [$("#start").css("width") * $(window).width() / $(window).height(),
-						  $("#start").css("width") * $(window).height() / $(window).width()]
+						  $("#start").css("width") * $(window).height() / $(window).width()];
+	var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 	function update_params() {
 		squig_params["pipes"]      = parseInt($("#pipes").slider("value"));
@@ -42,14 +33,16 @@ $(document).ready(function() {
 		squig_params["win_bounds"] = get_win_bounds();
 	}
 
-	function update_display(e, ui) {
+	function update_display(e, ui) {	
 		if ($(this).attr("id") == "start") {
 			var win_dims = [$(window).width(), $(window).height()];
-			if (ui.values[ui.handleIndex] > win_dims[ui.handleIndex]) {
+			var max_value = Math.max(win_dims[0], win_dims[1]); //
+			if (ui.value > win_dims[ui.handleIndex]) {
 				ui.values[ui.handleIndex] = win_dims[ui.handleIndex];
 				ui.value = win_dims[ui.handleIndex];
+				$("#start").slider("option", "values", ui.values);
 				$("#start").prev().children(".value" + (ui.handleIndex + 1)).text(ui.value);
-				$(ui).css("left", handle_max_pos[ui.handleIndex]);
+				$($("#start .ui-slider-handle")[ui.handleIndex]).css("left", 180 * ui.value / max_value);//				
 				return false;
 			}
 		}
@@ -72,7 +65,7 @@ $(document).ready(function() {
 		for (var i = 0; i < 2; i++) {
 			if (vals[i] > win_dims[i])
 				vals[i] = win_dims[i];
-			$($("#start .ui-slider-handle")[1]).css("left", left = 180 * vals[i] / max_value);
+			$($("#start .ui-slider-handle")[1]).css("left", 180 * vals[i] / max_value);
 			$("#start").prev().children(".value" + (i + 1)).text(vals[i]);
 		}
 		$("#start").slider("option", "values", vals);
@@ -126,10 +119,12 @@ $(document).ready(function() {
 		points = [];
 	    squig_params.path_bounds = [];
 		$(".line, .point_dot").remove();
+		$("#width").prev().css("padding-top", "0px");
 		$(".non-path").show();
 		update_params();
 		$(".squig" + squig_params.squig_i).remove();
 	   	start_demo();
+
 	}
 
 	function enter_draw_mode() {
@@ -140,14 +135,15 @@ $(document).ready(function() {
 		clearInterval(demo_timer);
 	}
 
-	function exit_draw_mode(e) {
-	    if ($("#draw_div").is(":visible") && (e.which == 13 || e.which == 32)) {
+	function exit_mode(e) {
+		if ($("#draw_div").is(":visible") && (e.which == 13 || e.which == 32 || e.which == 27)) {
 	    	$("#draw_div").off("mousemove");
 	    	$(".line").last().remove();
 	    	if (points.length > 1) {
 	    		for (var i = 0; i < points.length - 1; i++)
 	        		squig_params.path_bounds.push(get_bound_trio(points[i], points[i + 1]));
 	        	$(".non-path").hide();
+	        	$("#width").prev().css("padding-top", "5px");
 	        }
 	    	else
 	    		clear_path();
@@ -156,6 +152,8 @@ $(document).ready(function() {
 	    	$(".squig" + squig_params.squig_i).remove();
 	    	init_timer = setTimeout(start_demo, 800);
 		}
+		else if (e.which == 27)
+			exit_menu();
 	}
 
 	function toggle_menu() {
@@ -194,6 +192,7 @@ $(document).ready(function() {
 	}
 
 	function exit_menu() {
+		var colors = ["transparent", "rgba(211, 36, 36, 0.3)", "rgba(228, 206, 19, 0.3)", "rgba(19, 76, 228, 0.3)"];
 		$("#custom_menu").slideUp(400, "swing");
 		$(".menu_triangle").animate({"border-bottom-width": "0px"}, 400);
 		$(".line, .point_dot").hide();
@@ -212,7 +211,6 @@ $(document).ready(function() {
 		$(".ui-slider").slider("option", "change", update_params);
 		$("#color").off("change", start_demo);
 		$(".squig" + squig_params.squig_i).remove();
-		var colors = ["transparent", "rgba(255, 0, 0, 0.3)", "rgba(255, 255, 0, 0.3)", "rgba(0, 0, 255, 0.3)"]; ////edit these if change colors
 		clearInterval(demo_timer);
 		clearTimeout(init_timer);
 	}
@@ -257,6 +255,7 @@ $(document).ready(function() {
 	}
 
 	function enter_about() {
+		$("#about_div").show();
 		$("#about_div").animate({"top": 0}, 500);
 	}
 
@@ -266,11 +265,12 @@ $(document).ready(function() {
 		$("#custom_menu").hide(); 
 		$("#bgcolor").css("background-color", $("body").css("background-color"));
 		$("#about_div").animate({"top": "100vh"}, 500);
+		$("#about_div").hide();
 	}
 
 	function toggle_divs() {
 		squig_params.show_divs = !squig_params.show_divs;
-		var colors = ["transparent", "rgba(255, 0, 0, 0.3)", "rgba(255, 255, 0, 0.3)"];
+		var colors = ["transparent", "rgba(211, 36, 36, 0.3)", "rgba(228, 206, 19, 0.3)"];
 		var msgs   = ["Show Divs", "Hide Divs"];
 		$(".straight").css("background-color", colors[2 * squig_params.show_divs]);
 		$(".turn").css("background-color", colors[1 * squig_params.show_divs]);
@@ -279,13 +279,13 @@ $(document).ready(function() {
 
 	function toggle_wraps() {
 		squig_params.show_wraps = !squig_params.show_wraps;
-		var colors = ["transparent", "rgba(0, 0, 255, 0.3)"];
+		var colors = ["transparent", "rgba(19, 76, 228, 0.3)"];
 		var msgs   = ["Show Wraps", "Hide Wraps"];
 		$(".wrap").css("background-color", colors[1 * squig_params.show_wraps]);
 		$("#toggle_wraps").html(msgs[1 * squig_params.show_wraps]);
 	}
 
-	function opening_sequence() { //put this in its own file?
+	function opening_sequence() {
 		squig_params = {
 			squig_i: 0,
 			width: 5,
@@ -416,8 +416,8 @@ $(document).ready(function() {
 		$("#width").slider({min:1, max:50, value: 6});                 
 		$("#speed").slider({min:1, max:100, value: 65});
 		$("#radii").slider({min:1, max:100, values: [25, 40], range: true});  
-		$("#straights").slider({min:0, max:100, values: [10, 20], range: true});
-		$("#turns").slider({min:1, max:180, values: [30, 170], range: true});         
+		$("#straights").slider({min:0, max:100, values: [5, 15], range: true});
+		$("#turns").slider({min:1, max:180, values: [50, 170], range: true});         
 		$("#start").slider({min:0, 
 							max: Math.max($(window).width(), $(window).height()), 
 							values: [parseInt($(window).width() / 3), parseInt($(window).height() / 2)]});
@@ -448,11 +448,9 @@ $(document).ready(function() {
 		});
 		$("#new_path").on("click", enter_draw_mode);
 		$("#clear_path").on("click", clear_path);
-	//	$("input").on("keypress", blur_input);
 		$(window).on("resize", handle_resize);
 		$("#draw_div").on("click", draw_new_point);
-		$(window).on("keypress", exit_draw_mode);
-		//$("#begin_but").on("click", exit_about);
+		$(window).on("keyup", exit_mode);
 		$("#toggle_divs").on("click", toggle_divs);
 		$("#toggle_wraps").on("click", toggle_wraps);
 		$(".help").on("mouseover", show_info);
@@ -465,12 +463,18 @@ $(document).ready(function() {
 
 
 	function main() {
-		opening_sequence();
-		//$("#main_wrapper").show(); /////////// only if no opening sequence
-		init_sliders();
-		update_params(); 
-		set_listeners();  
+		if (mobile) {
+			$("body").append("<p id='mobile_error'>Squig doesn't currently support mobile browsers</p>")
+		}
+		else {
+			opening_sequence();
+			//$("#main_wrapper").show(); // only if no opening sequence
+			init_sliders();
+			update_params(); 
+			set_listeners(); 
+		}
 	}
 
 	main();
+
 });

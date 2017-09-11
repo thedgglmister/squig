@@ -978,7 +978,7 @@ var jsc = {
 
 		// General options
 		//
-		this.value = "#000000"; // initial HEX color. To change it later, use methods fromString(), fromHSV() and fromRGB()
+		this.value = targetElement.name; // initial HEX color. To change it later, use methods fromString(), fromHSV() and fromRGB()
 		this.valueElement = targetElement; // element that will be used to display and input the color code
 		this.styleElement = targetElement; // element that will preview the picked color using CSS backgroundColor
 		this.required = true; // whether the associated text <input> can be left empty
@@ -992,17 +992,63 @@ var jsc = {
 		this.minV = 0; // min allowed value (brightness) (0 - 100)
 		this.maxV = 100; // max allowed value (brightness) (0 - 100)
 
+
 		// Accessing the picked color
 		//
-		this.hsv = [0, 0, 100]; // read-only  [0-360, 0-100, 0-100]
-		this.rgb = [255, 255, 255]; // read-only  [0-255, 0-255, 0-255]
+		function hexToRgb(hex) {
+    		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    		return result ? 
+        	[parseInt(result[1], 16),
+        	parseInt(result[2], 16),
+        	parseInt(result[3], 16)]
+    		: null;
+		}
+
+		function rgb2hsv (rgb) {
+		    var rr, gg, bb,
+		        r = rgb[0] / 255,
+		        g = rgb[1] / 255,
+		        b = rgb[2] / 255,
+		        h, s,
+		        v = Math.max(r, g, b),
+		        diff = v - Math.min(r, g, b),
+		        diffc = function(c){
+		            return (v - c) / 6 / diff + 1 / 2;
+		        };
+
+		    if (diff == 0) {
+		        h = s = 0;
+		    } else {
+		        s = diff / v;
+		        rr = diffc(r);
+		        gg = diffc(g);
+		        bb = diffc(b);
+
+		        if (r === v) {
+		            h = bb - gg;
+		        }else if (g === v) {
+		            h = (1 / 3) + rr - bb;
+		        }else if (b === v) {
+		            h = (2 / 3) + gg - rr;
+		        }
+		        if (h < 0) {
+		            h += 1;
+		        }else if (h > 1) {
+		            h -= 1;
+		        }
+		    }
+		    return [Math.round(h * 360), Math.round(s * 100), Math.round(v * 100)];
+		}
+
+		this.rgb = hexToRgb(this.value); // read-only  [0-255, 0-255, 0-255]
+		this.hsv = rgb2hsv(this.rgb); // read-only  [0-360, 0-100, 0-100]
 
 		// Color Picker options
 		//
 		this.width = 181; // width of color palette (in px)
 		this.height = 101; // height of color palette (in px)
 		this.showOnClick = true; // whether to display the color picker when user clicks on its target element
-		this.mode = 'HSV'; // HSV | HVS | HS | HV - layout of the color picker controls
+		this.mode = 'HVS'; // HSV | HVS | HS | HV - layout of the color picker controls
 		this.position = 'bottom'; // left | right | top | bottom - position relative to the target element
 		this.smartPosition = true; // automatically change picker position when there is not enough space for it
 		this.sliderSize = 16; // px

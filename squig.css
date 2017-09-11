@@ -1,300 +1,7 @@
 body {
   margin: 0px;
   overflow: hidden;
-  background-color: #5F4133;
-}
-
-#main_wrapper {
-  position: absolute;
-  display: none;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-  z-index: 999;
-}
-
-#draw_div {
-  position: absolute;
-  display: none;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 100vw;  
-  z-index: 998;
-  background-color: transparent;
-}
-
-#draw_div p {
-  width: 300px;
-  color: white;
-  font-family: "Quicksand";
-  margin: 100px auto 0 auto;
-  text-align: center;
-}
-
-#about_div {
-  position: absolute;
-  left: 0;
-  top: 100vh;
-  height: 100vh;
-  width: 100vw;  
-  z-index: 1000;
-  background: rgba(55, 58, 71, 0.8);
-  color: white;
-  font-family: "Quicksand";
-}
-
-#about_div p {
-  width: 80vw;
-  margin: 30vh auto 5vh auto;
-  text-align: center;
-  font-size: 40px;
-}
-
-#begin_but {
-  margin: auto;
-  width: 300px;
-  height: 80px;
-  border-radius: 20px;
-  border: 2px solid white;
-  text-align: center;
-  padding-top: 30px;
-  font-size: 30px;
-  cursor: pointer;
-  background-color: rgba(100,100,100,0.2);
-}
-
-#begin_but:hover {
-    background-color: rgba(100,100,100,0.4);
-}
-
-button {
-  font-family: "Quicksand";
-  font-size: 20px;
-  cursor: pointer;
-}
-button:focus {
-  outline: none;
-}
-
-
-#bottom_wrap {
-  position: absolute;
-  bottom: 30px;
-  width: 100vw;
-  text-align: center;
-}
-
-.but {
-  display: inline-block;
-  height: 40px;
-  width: 200px;
-  font-size: 25px;
-  text-align: center;
-  z-index: 500;
-  border-radius: 3px;
-  border: none;
-  opacity: 0.7;
-}
-
-.but:hover {
-  opacity: 0.9;
-}
-
-.bottom_but {
-    margin: 0 5vw 10px 5vw;
-}
-
-#squig_but {
-  background-color: #FFE9BC;
-}
-
-#clear_but {
-  background-color: #72C0AA;
-}
-
-
-
-
-
-
-
-
-
-
-
-#custom_but {
-  display: block;
-  background-color: #c0c0c0;
-  margin: 10px 0 0 10px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-#toggle_wrap {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-
-.toggle_but {
-  display: block;
-  font-size: 15px;
-  width: 120px;
-  height: 30px;
-  margin: 10px;
-}
-
-
-
-
-
-
-
-
-
-.menu_triangle {
-  position: relative;
-  left: 20px;
-  width: 0px;
-  opacity: 0.7;
-  background-color: transparent;
-  border-bottom: 0px solid #c0c0c0;
-  border-top: 0px solid transparent;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-}
-
-
-
-
-#custom_menu {
-  width: 232px;
- // border: 1px solid black;
-  border-radius: 3px;
-  font-family: "Quicksand";
-  background-color: #c0c0c0;
-  opacity: 0.7;
-  padding: 0px 0px 10px 10px;
-  margin-left: 10px;
-}
-
-.option {
-  position: relative;
-}
-
-.option:first-child {
-  padding-top: 5px;
-}
-
-.help {
-  cursor: help;
-}
-
-.ui-slider-horizontal {
-  margin: 2px auto 5px auto;
-  width: 180px;
-  height: 5px
-}
-
-.ui-slider-horizontal .ui-slider-handle {
-  height: 12px;
-  width: 12px;
-  font-size: 10px;
-  text-align: center;
-  top: -4px
-}
-
-.ui-slider-horizontal .ui-slider-handle:focus {
-  outline: none;
-}
-
-.ui-slider .ui-slider-range {
-  background: grey;
-  top: -1px;
-  height: 7px;
-}
-
-.jscolor {
-  width: 25px;
-  margin-top: 6px;
-  border: 2px solid #eee;
-  border-radius: 1px;
-}
-
-#custom_menu button {
-  margin-top: 7px;
-}
-
-.info {
-  position: absolute;
-  display: none;
-  width: 140px;
-  background-color: #82D0BA;
-  border-radius: 3px;
-  left: -15px;
-  top: 30px;
-  font-size: 14px;
-  text-align: center;
-  z-index: 100;
-  padding: 5px;
-  color: #ffffff;
-}
-
-.option:first-child .info {
-  top: 35px;
-}
-
-.info_triangle {
-  position: absolute;
-  display: none;
-  width: 0px;
-  background-color: transparent;
-  border-bottom: 10px solid #82D0BA;
-  border-top: 0px solid transparent;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.line {
-    position: absolute;
-    transform-origin: 0 50%;
-    height: 1px; 
-    background-color: lightgrey;
-}
-
-.point_dot {
-  position: absolute;
-  border-radius: 100%;
-  background-color: black;
-  z-index: 100;
+  background-color: #6e3f17;
 }
 
 .wrap { 
@@ -309,7 +16,6 @@ button:focus {
 .wrap.show {
   background-color: rgba(19, 76, 228, 0.3);
 }
-
 
 .straight { 
   position: absolute;
@@ -348,3 +54,259 @@ button:focus {
   transform-origin: 0% 50%;
 }
 
+button {
+  font-family: "Quicksand";
+  font-size: 20px;
+  cursor: pointer;
+}
+button:focus {
+  outline: none;
+}
+
+#main_wrapper {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+}
+
+#bottom_wrap {
+  position: absolute;
+  bottom: 30px;
+  width: 100vw;
+  text-align: center;
+}
+
+.but {
+  display: inline-block;
+  height: 40px;
+  width: 200px;
+  font-size: 25px;
+  text-align: center;
+  z-index: 500;
+  border-radius: 3px;
+  border: none;
+  opacity: 0.7;
+}
+
+.but:hover {
+  opacity: 0.9;
+}
+
+.bottom_but {
+    margin: 0 5vw 10px 5vw;
+}
+
+#squig_but {
+  background-color: #FFE9BC;
+}
+
+#clear_but {
+  background-color: #72C0AA;
+}
+
+#toggle_wrap {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.toggle_but {
+  display: block;
+  font-size: 15px;
+  width: 120px;
+  height: 30px;
+  margin: 10px;
+  border-radius: 2px;
+}
+
+#about_div {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100vh;
+  height: 100vh;
+  width: 100vw;  
+  z-index: 1000;
+  background: rgba(55, 58, 71, 0.8);
+  color: white;
+  font-family: "Quicksand";
+}
+
+#about_div p {
+  width: 80vw;
+  margin: 30vh auto 5vh auto;
+  text-align: center;
+  font-size: 40px;
+}
+
+#begin_but {
+  margin: auto;
+  width: 300px;
+  height: 80px;
+  border-radius: 20px;
+  border: 2px solid white;
+  text-align: center;
+  padding-top: 30px;
+  font-size: 30px;
+  cursor: pointer;
+  background-color: rgba(100,100,100,0.2);
+}
+
+#begin_but:hover {
+    background-color: rgba(100,100,100,0.4);
+}
+
+#custom_but {
+  width: 150px;
+  height: 30px;
+  font-size: 18px;
+  display: block;
+  background-color: #d0d0d0;
+  margin: 10px 0 0 10px;
+  border-radius: 2px;
+}
+
+.menu_triangle {
+  position: relative;
+  left: 20px;
+  width: 0px;
+  opacity: 0.7;
+  background-color: transparent;
+  border-bottom: 0px solid #d0d0d0;
+  border-top: 0px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+#custom_menu {
+  width: 232px;
+  border-radius: 2px;
+  font-family: "Quicksand";
+  background-color: #d0d0d0;
+  opacity: 0.7;
+  padding: 0px 0px 10px 10px;
+  margin-left: 10px;
+}
+
+#custom_menu button {
+  margin-top: 7px;
+}
+
+.option {
+  position: relative;
+}
+
+.option:first-child {
+  padding-top: 5px;
+}
+
+.help {
+  cursor: help;
+}
+
+.info {
+  position: absolute;
+  display: none;
+  width: 140px;
+  background-color: #72c0aa;
+  border-radius: 3px;
+  left: -15px;
+  top: 30px;
+  font-size: 14px;
+  text-align: center;
+  z-index: 100;
+  padding: 5px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.option:first-child .info {
+  top: 35px;
+}
+
+.info_triangle {
+  position: absolute;
+  display: none;
+  width: 0px;
+  background-color: transparent;
+  border-bottom: 10px solid #72c0aa;
+  border-top: 0px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.ui-slider-horizontal {
+  margin: 2px auto 5px auto;
+  width: 180px;
+  height: 5px
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+  height: 12px;
+  width: 12px;
+  font-size: 10px;
+  text-align: center;
+  top: -4px
+}
+
+.ui-slider-horizontal .ui-slider-handle:focus {
+  outline: none;
+}
+
+.ui-slider .ui-slider-range {
+  background: #c0c0c0;
+  top: -1px;
+  height: 7px;
+}
+
+.jscolor {
+  width: 25px;
+  margin-top: 6px;
+  border: 2px solid #eee;
+  border-radius: 1px;
+}
+
+#draw_div {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;  
+  z-index: 998;
+  background-color: transparent;
+}
+
+#draw_div p {
+  width: 300px;
+  color: white;
+  font-family: "Quicksand";
+  margin: 100px auto 0 auto;
+  font-size: 15px;
+  text-align: center;
+}
+
+.line {
+    position: absolute;
+    transform-origin: 0 50%;
+    height: 1px; 
+    background-color: lightgrey;
+}
+
+.point_dot {
+  position: absolute;
+  border-radius: 100%;
+  background-color: black;
+  z-index: 100;
+}
+
+#mobile_error {
+  margin: 40vh auto 0vh auto;
+  text-align:center;
+  font-family: "Quicksand";
+  font-size: 5em;
+}

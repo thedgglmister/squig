@@ -45,18 +45,18 @@
             <div id="radii"></div>
 
             <div class="option non-path">
-                <span class="help">Straights: </span><span class="value1">10</span> to <span class="value2">20</span>
-                <div class="info_triangle"></div>
-                <div class="info">The length that a squig can move without turning is randomly chosen between these two values</div>
-            </div>
-            <div id="straights" class="non-path"></div>
-
-            <div class="option non-path">
-                <span class="help">Turns: </span><span class="value1">30</span>˚ to <span class="value2">180</span>˚
+                <span class="help">Turns: </span><span class="value1">50</span>˚ to <span class="value2">180</span>˚
                 <div class="info_triangle"></div>
                 <div class="info">The degrees of each turn is randomly chosen between these two values</div>
             </div>
             <div id="turns" class="non-path"></div>
+
+            <div class="option non-path">
+                <span class="help">Straights: </span><span class="value1">5</span> to <span class="value2">15</span>
+                <div class="info_triangle"></div>
+                <div class="info">The length that a squig can move without turning is randomly chosen between these two values</div>
+            </div>
+            <div id="straights" class="non-path"></div>
 
             <div class="option non-path">
                 Start: x = <span class="value1"></span>, y = <span class="value2"></span>
@@ -64,15 +64,12 @@
             <div id="start" class="non-path"></div>
 
             <div class="option">
-                Color: <input id="color" class="jscolor" type="button" name="#000000"/> 
-            </div>
-
-            <div class="option">
-                Background Color: <input id="bgcolor" class="jscolor" type="button" name="#5F4133"/> 
+                Color: <input id="color" class="jscolor" type="button" name="#000000"/>&nbsp&nbsp
+                Background: <input id="bgcolor" class="jscolor" type="button" name="#6e3f17"/> 
             </div>
               
-            <button id="new_path">New Path</button>
-            <button id="clear_path">Clear Path</button>
+            <button id="new_path" class="path_but">New Path</button>
+            <button id="clear_path" class="path_but">Clear Path</button>
         </div>
         <div id="toggle_wrap">
             <button id="toggle_divs" class="toggle_but but">Show Divs</button>
@@ -94,8 +91,7 @@
     <div id="draw_div">
         <p>Click to add lines to your path. Hit Enter or Space when you're done</p>
     </div>
-
-    
+ 
 </body>
 
 </html>
