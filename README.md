@@ -1,5 +1,5 @@
 # Squig
-A random squiggly line generator built using only simple Jquery animations.
+A random squiggly line generator built using only simple jQuery animations.
 Can be found at <a href="http://www.digglemister.com">www.digglemister.com</a>
 
 ### --Project Description--
