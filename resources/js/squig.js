@@ -43,11 +43,11 @@ $(document).ready(function() {
 	}
 
 	function get_win_bounds() {
-		var win_h = $(window).height() + 100;
-		var win_w = $(window).width() + 100;
+		var win_h = $(window).height();
+		var win_w = $(window).width();
 		var left  = new Bound({x1: 0, y1: 0, x2: 0, y2: win_h, ineq: ">"});
 		var top   = new Bound({x1: 0, y1: 0, x2: win_w, y2: 0, ineq: "<"});
-		var right = new Bound({x1: win_w, y1: -100, x2: win_w, y2: win_h, ineq: "<"});
+		var right = new Bound({x1: win_w, y1: 0, x2: win_w, y2: win_h, ineq: "<"});
 		var bot   = new Bound({x1: 0, y1: win_h, x2: win_w, y2: win_h, ineq: ">"});
 		if (squig_params)
 			squig_params.win_bounds = [left, top, right, bot];
