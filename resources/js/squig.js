@@ -107,7 +107,8 @@ $(document).ready(function() {
 	}
 
 	function exit_mode(e) {
-		if ($("#draw_div").is(":visible") && (e.which == 13 || e.which == 32 || e.which == 27)) {
+		if ($("#draw_div").is(":visible") && (e.which == 13 || e.which == 32 || 
+				e.which == 27 || e.type == "swipe")) {
 	    	$("#draw_div").off("mousemove");
 	    	$(".line").last().remove();
 	    	if (points.length > 1) {
@@ -151,8 +152,12 @@ $(document).ready(function() {
 		$("#custom_menu").slideDown(400, "swing");
 		$(".line, .point_dot").show();
 		$(".straight, .turn").css("opacity", 0.08);
-		$("#bottom_wrap").animate({"bottom": "-100px"}, 100);
-		$("#toggle_wrap").animate({"right": "-200px"}, 100);
+		$("#bottom_wrap").animate({"bottom": "-100px"}, 100, function() {
+			$("#bottom_wrap").hide();
+		});
+		$("#toggle_wrap").animate({"right": "-200px"}, 100, function() {
+			$("#toggle_wrap").hide();
+		});
 		$(".wrap, .straight, .turn").css("background-color", "transparent");
 		$(".ui-slider").slider("option", "change", function() {update_params(); start_demo();});
 		$("#color").on("change", start_demo);
@@ -167,8 +172,9 @@ $(document).ready(function() {
 		$("#custom_menu").slideUp(400, "swing");
 		$(".menu_triangle").animate({"border-bottom-width": "0px"}, 400);
 		$(".line, .point_dot").hide();
-		setTimeout(function() {$("#bottom_wrap").animate({"bottom": "30px"}, 400)}, 100);
-		setTimeout(function() {$("#toggle_wrap").animate({"right": "0px"}, 400)}, 100);
+		var bottom = ($(window).width < 700 ? "5px" : "30px");
+		setTimeout(function() {$("#bottom_wrap").show().animate({"bottom": bottom}, 400)}, 100);
+		setTimeout(function() {$("#toggle_wrap").show().animate({"right": "0px"}, 400)}, 100);
 		setTimeout(function() {
 			$(".straight, .turn").css("opacity", 1);
 			if ($("#toggle_divs").text() == "Hide Divs")
@@ -227,18 +233,15 @@ $(document).ready(function() {
 	}
 
 	function enter_about() {
-		$("#about_div").show();
-		$("#about_div").animate({"top": 0}, 500);
+		$("#about_div").fadeIn(1000);
 	}
 
 	function exit_about() {
 		clear_squigs();
+		$("#about_div").hide();
 		$("#main_wrapper").show();
 		$("#custom_menu").hide(); 
 		$("#bgcolor").css("background-color", $("body").css("background-color"));
-		$("#about_div").animate({"top": "100vh"}, 500, function() {
-			$("#about_div").hide();
-		});
 	}
 
 	function toggle_divs() {
@@ -320,6 +323,7 @@ $(document).ready(function() {
 		var all_points = [s_points, q_points, u_points, i_points, g_points];
 
 		var ratio = $(window).width() / 1500;
+		$("#about_container").css("top", 350 * ratio + (($(window).height() - 0.28 * $(window).width()) / 2));
 		squig_params.min_r	= parseInt(squig_params.min_r * ratio);
 		squig_params.max_r	= parseInt(squig_params.max_r * ratio);
 		squig_params.min_s	= parseInt(squig_params.min_s * ratio);
@@ -333,6 +337,13 @@ $(document).ready(function() {
 				all_points[i][j].y += ($(window).height() - 0.28 * $(window).width()) / 2;
 			}
 		}
+
+
+
+
+
+
+
 
 		var duration;
 		var max_duration = 0;
@@ -355,7 +366,7 @@ $(document).ready(function() {
 	    	squig_params.path_bounds = [];
 		}
 
-		setTimeout(enter_about, max_duration + 3000);
+		setTimeout(enter_about, max_duration + 1000);
 	}
 
 	function show_info(e) {
@@ -421,6 +432,7 @@ $(document).ready(function() {
 		$(window).on("resize", update_params);
 		$("#draw_div").on("click", draw_new_point);
 		$(window).on("keyup", exit_mode);
+		$(window).on("swipe", exit_mode);
 		$("#toggle_divs").on("click", toggle_divs);
 		$("#toggle_wraps").on("click", toggle_wraps);
 		$(".help").on("mouseover", show_info);
@@ -433,16 +445,11 @@ $(document).ready(function() {
 
 
 	function main() {
-		if (mobile) {
-			$("body").append("<p id='mobile_error'>Squig doesn't currently support mobile browsers</p>")
-		}
-		else {
-			opening_sequence();
-			//$("#main_wrapper").show(); // only if no opening sequence
-			init_sliders();
-			update_params(); 
-			set_listeners(); 
-		}
+		opening_sequence();
+		//$("#main_wrapper").show(); // only if no opening sequence
+		init_sliders();
+		update_params(); 
+		set_listeners(); 
 	}
 
 	main();

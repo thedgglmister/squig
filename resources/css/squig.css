@@ -126,38 +126,38 @@ button:focus {
 #about_div {
   display: none;
   position: absolute;
-  left: 0;
-  top: 100vh;
   height: 100vh;
   width: 100vw;  
   z-index: 1000;
-  background: rgba(55, 58, 71, 0.8);
   color: white;
   font-family: "Quicksand";
 }
 
+#about_container {
+  position: relative;
+}
+
 #about_div p {
-  width: 80vw;
-  margin: 30vh auto 5vh auto;
   text-align: center;
-  font-size: 40px;
+  font-size: 2vw;
 }
 
 #begin_but {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: auto;
-  width: 300px;
-  height: 80px;
-  border-radius: 20px;
+  width: 14vw;
+  height: 4vw;
+  border-radius: 1vw;
   border: 2px solid white;
-  text-align: center;
-  padding-top: 30px;
-  font-size: 30px;
+  font-size: 1.5vw;
   cursor: pointer;
-  background-color: rgba(100,100,100,0.2);
 }
 
 #begin_but:hover {
-    background-color: rgba(100,100,100,0.4);
+  background-color: #fff;
+  color: #000;
 }
 
 #custom_but {
@@ -307,4 +307,94 @@ button:focus {
   text-align:center;
   font-family: "Quicksand";
   font-size: 5em;
+}
+
+
+@media (max-width: 700px) {
+ 
+  .but {
+    height: 27px;
+    width: 133px;
+    font-size: 16px;
+    border-radius: 2px;
+  }
+
+  #custom_but {
+    font-size: 13px;
+    margin: 6px 0 0 6px;
+  }
+
+
+  .toggle_but {
+    font-size: 10px;
+    width: 80px;
+    height: 20px;
+    margin: 6px;
+  }
+  
+  #begin_but {
+    border: 1px solid white;
+  }
+
+
+
+
+  #custom_menu {
+    width: 155px;
+    padding: 0px 0px 6px 6px;
+    margin-left: 6px;
+  }
+
+  #custom_menu button {
+    margin-top: 4px;
+  }
+
+  .option {
+    font-size: 12px;
+  }
+
+  .option:first-child {
+    padding-top: 3px;
+  }
+
+
+  .info {
+    width: 93px;
+    border-radius: 2px;
+    left: -10px;
+    top: 20px;
+    font-size: 10px;
+    padding: 3px;
+  }
+
+  .option:first-child .info {
+    top: 21px;
+  }
+
+
+  .ui-slider-horizontal {
+    width: 120px;
+    height: 5px;
+  }
+
+
+
+
+
+
+
+  .jscolor {
+    width: 15px;
+    height: 15px;
+    margin-top: 4px;
+    border: 1px solid #eee;
+    border-radius: 1px;
+  }
+
+  .path_but {
+    font-size: 12px;
+    border-radius: 0;
+  }
+
+
 }
