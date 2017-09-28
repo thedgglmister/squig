@@ -445,11 +445,15 @@ $(document).ready(function() {
 
 
 	function main() {
-		opening_sequence();
-		//$("#main_wrapper").show(); // only if no opening sequence
-		init_sliders();
-		update_params(); 
-		set_listeners(); 
+		if (mobile)
+			$("body").append("<p id='mobile_error'>Squig doesn't currently support mobile browsers</p>")
+		else {
+			opening_sequence();
+			//$("#main_wrapper").show(); // only if no opening sequence
+			init_sliders();
+			update_params(); 
+			set_listeners(); 
+		}
 	}
 
 	main();

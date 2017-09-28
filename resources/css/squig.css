@@ -210,7 +210,7 @@ button:focus {
   position: absolute;
   display: none;
   width: 140px;
-  background-color: #72c0aa;
+  background-color: #FFE9BC;
   border-radius: 3px;
   left: -15px;
   top: 30px;
@@ -218,7 +218,7 @@ button:focus {
   text-align: center;
   z-index: 100;
   padding: 5px;
-  color: #ffffff;
+  color: #000;
   opacity: 1;
 }
 
@@ -231,7 +231,7 @@ button:focus {
   display: none;
   width: 0px;
   background-color: transparent;
-  border-bottom: 10px solid #72c0aa;
+  border-bottom: 10px solid #FFE9BC;
   border-top: 0px solid transparent;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -306,7 +306,7 @@ button:focus {
   margin: 40vh auto 0vh auto;
   text-align:center;
   font-family: "Quicksand";
-  font-size: 5em;
+  font-size: 5vw;
 }
 
 
@@ -335,9 +335,6 @@ button:focus {
   #begin_but {
     border: 1px solid white;
   }
-
-
-
 
   #custom_menu {
     width: 155px;
@@ -377,12 +374,6 @@ button:focus {
     height: 5px;
   }
 
-
-
-
-
-
-
   .jscolor {
     width: 15px;
     height: 15px;
@@ -395,6 +386,5 @@ button:focus {
     font-size: 12px;
     border-radius: 0;
   }
-
 
 }
