@@ -6,9 +6,9 @@ $(document).ready(function() {
 						show_wraps:  false,
 						path_bounds: []};
 	var points = [];
-	var	color_open = false;
+	var color_open = false;
 	var demo_timer;
-	var	init_timer;
+	var init_timer;
 	var show_info_timer;
 	var hide_info_timer;
 	var mouse_down_target;
@@ -448,8 +448,8 @@ $(document).ready(function() {
 		if (mobile)
 			$("body").append("<p id='mobile_error'>Squig doesn't currently support mobile browsers</p>")
 		else {
-			opening_sequence();
-			//$("#main_wrapper").show(); // only if no opening sequence
+			//opening_sequence();
+			$("#main_wrapper").show(); // only if no opening sequence
 			init_sliders();
 			update_params(); 
 			set_listeners(); 
