@@ -450,6 +450,7 @@ $(document).ready(function() {
 		else {
 			//opening_sequence();
 			$("#main_wrapper").show(); // only if no opening sequence
+			$("#custom_menu").hide(); // only if no opening sequence
 			init_sliders();
 			update_params(); 
 			set_listeners(); 
