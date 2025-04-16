@@ -7,14 +7,16 @@ $(document).ready(function() {
 						path_bounds: []};
 	var points = [];
 	var color_open = false;
-	var demo_timer;
+	let demoTimerId;
 	var init_timer;
 	var show_info_timer;
 	var hide_info_timer;
-	var mouse_down_target;
-	var handle_max_pos = [$("#start").css("width") * $(window).width() / $(window).height(),
-						  $("#start").css("width") * $(window).height() / $(window).width()];
+	// var mouse_down_target;
+	// var handle_max_pos = [$("#start").css("width") * $(window).width() / $(window).height(),
+	// 					  $("#start").css("width") * $(window).height() / $(window).width()];
 	var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+	// Notes: squig_params.squig_i is incremented everytime a new squig is drawn. 
 
 	function update_params() {
 		squig_params["pipes"]      = parseInt($("#pipes").slider("value"));
@@ -27,10 +29,13 @@ $(document).ready(function() {
 		squig_params["min_t"]      = parseInt($("#turns").slider("values")[0]);
 		squig_params["max_t"]      = parseInt($("#turns").slider("values")[1]);
 		squig_params["init_left"]  = parseInt($("#start").slider("values")[0] * $(window).width() / 1000);
-		squig_params["init_top"]   = parseInt($("#start").slider("values")[1] * $(window).height() / 1000);
+		squig_params["init_top"]   = $(window).height() - (parseInt($("#start").slider("values")[1] * $(window).height() / 1000));
 		squig_params["init_angle"] = 360 - parseInt($("#start").slider("values")[2] * 359 / 1000);
 		squig_params["color"]      = $("#color").attr("name");
 		squig_params["win_bounds"] = get_win_bounds();
+
+		console.log(232);
+		console.log(JSON.stringify(squig_params));
 	}
 
 	function update_display(e, ui) {
@@ -103,7 +108,7 @@ $(document).ready(function() {
 		$("#main_wrapper").hide(); 
 		$("#draw_div").show();
 		$(".squig" + squig_params.squig_i).remove();
-		clearInterval(demo_timer);
+		clearTimeout(demoTimerId);
 	}
 
 	function exit_mode(e) {
@@ -136,15 +141,23 @@ $(document).ready(function() {
 	}
 
 	function start_demo() {
-		clearInterval(demo_timer);
+		clearTimer(demoTimerId);
+		scheduleDemoSquig();
+	}
+		
+	//// here. need it to restart after the squig completes. is there a way to have it return a promise? actually, seems like it can return a duration. maybe try having it run while you're in draw mode. maybe not? it runs while in customize mode, so maybe that makes more sense? eh maybe try it if its easy? needs at least two points? also choose different colors for show divs and wraps instead of red yellow blue. put customize under shoew wraps? the y control in customize is inverted. 100% should be he top. maybe dont have squiq and clear be two colors? make the animations when customize opens go faster.
+	///// give x y and theta their own small inputs, the y one being verical, x horizontal, theta radial??
+
+	function demoSquig() { /// hoisted?
 		$(".squig" + squig_params.squig_i).remove();
-		build_and_draw_squig();
-		squig_params.squig_i--;
-		demo_timer = setInterval(function() {
-			$(".squig" + squig_params.squig_i).remove();
-			build_and_draw_squig();
-			squig_params.squig_i--;
-		}, 3000);
+		const demoDuration = build_and_draw_squig(true);
+		squig_params.squig_i--; // I believe build_and_draw_squig automatically increments squig_i, but in demo mode we don't want it to
+		return demoDuration;
+	}
+
+	function scheduleDemoSquig() { // TODO: Refactor to use promises?
+		const demoSquigDuration = demoSquig();
+		demoTimerId = setTimeout(scheduleDemoSquig, demoSquigDuration);
 	}
 
 	function enter_menu() {
@@ -188,7 +201,7 @@ $(document).ready(function() {
 		$(".ui-slider").slider("option", "change", update_params);
 		$("#color").off("change", start_demo);
 		$(".squig" + squig_params.squig_i).remove();
-		clearInterval(demo_timer);
+		clearTimeout(demoTimerId);
 		clearTimeout(init_timer);
 	}
 
