@@ -33,9 +33,6 @@ $(document).ready(function() {
 		squig_params["init_angle"] = 360 - parseInt($("#start").slider("values")[2] * 359 / 1000);
 		squig_params["color"]      = $("#color").attr("name");
 		squig_params["win_bounds"] = get_win_bounds();
-
-		console.log(232);
-		console.log(JSON.stringify(squig_params));
 	}
 
 	function update_display(e, ui) {
@@ -141,14 +138,14 @@ $(document).ready(function() {
 	}
 
 	function start_demo() {
-		clearTimer(demoTimerId);
+		clearTimeout(demoTimerId);
 		scheduleDemoSquig();
 	}
 		
 	//// here. need it to restart after the squig completes. is there a way to have it return a promise? actually, seems like it can return a duration. maybe try having it run while you're in draw mode. maybe not? it runs while in customize mode, so maybe that makes more sense? eh maybe try it if its easy? needs at least two points? also choose different colors for show divs and wraps instead of red yellow blue. put customize under shoew wraps? the y control in customize is inverted. 100% should be he top. maybe dont have squiq and clear be two colors? make the animations when customize opens go faster.
 	///// give x y and theta their own small inputs, the y one being verical, x horizontal, theta radial??
 
-	function demoSquig() { /// hoisted?
+	function demoSquig() {
 		$(".squig" + squig_params.squig_i).remove();
 		const demoDuration = build_and_draw_squig(true);
 		squig_params.squig_i--; // I believe build_and_draw_squig automatically increments squig_i, but in demo mode we don't want it to
